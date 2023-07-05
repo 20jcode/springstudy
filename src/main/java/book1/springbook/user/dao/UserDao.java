@@ -5,10 +5,10 @@ import book1.springbook.user.domain.User;
 import java.sql.*;
 
 public class UserDao {
-	private ConnectionMaker connectionMaker; // 어떤 클래스인지 정보를 몰라도 된다 생각했지만?
+	private ConnectionMaker connectionMaker; // 어떤 클래스인지 정보를 몰라도 된다 생각했지만? -> 이제는 몰라도된다
 
-	public UserDao(){
-		connectionMaker = new DConnectionMaker(); // 또다시 클래스의 이름을 알아야함
+	public UserDao(ConnectionMaker connectionMaker){
+		this.connectionMaker = connectionMaker; // 외부에서 생성자를 통해 객체를 주입
 	}
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection(); //인터페이스에 정의디ㅚㄴ 메소드 사용. 클래스 바뀌어도 메서드는 안변함
