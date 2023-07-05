@@ -6,10 +6,7 @@ import java.sql.*;
 
 public class UserDao {
 	public void add(User user) throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		// com.mysql.cj.jdbc.Driver 으로 바꿔주기
-		Connection c = DriverManager.getConnection(
-				"jdbc:mysql://localhost/springStudy","root","0000");
+		Connection c = getConnection();
 
 		PreparedStatement ps = c.prepareStatement(
 				"insert into users(id,name,password) value(?,?,?)");
@@ -24,9 +21,7 @@ public class UserDao {
 	}
 
 	public User get(String id) throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection c = DriverManager.getConnection(
-				"jdbc:mysql://localhost/springStudy","root","0000");
+		Connection c = getConnection();
 
 		PreparedStatement ps = c.prepareStatement(
 				"select * from users where id = ?");
@@ -46,4 +41,14 @@ public class UserDao {
 		return user;
 
 	}
+
+	private Connection getConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				"jdbc:mysql://localhost/springStudy","root","0000"
+		);
+		return c;
+	}
+
+
 }
