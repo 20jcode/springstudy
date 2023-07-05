@@ -12,6 +12,8 @@ class UserDaoTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		UserDao dao = new UserDao();
 
+		dao.del("happy");
+
 		User user = new User();
 		user.setId("happy");
 		user.setName("해피");
