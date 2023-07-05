@@ -4,7 +4,7 @@ import book1.springbook.user.domain.User;
 
 import java.sql.*;
 
-public class UserDao {
+public abstract class UserDao {
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		Connection c = getConnection();
 
@@ -42,13 +42,28 @@ public class UserDao {
 
 	}
 
-	private Connection getConnection() throws ClassNotFoundException, SQLException {
+	public void del(String id) throws ClassNotFoundException, SQLException {
+		Connection c = getConnection();
+
+		PreparedStatement ps = c.prepareStatement(
+				"delete from users where id = ?"
+		);
+		ps.setString(1,id);
+
+		ps.executeUpdate();
+		ps.close();
+		c.close();
+	}
+
+	public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+	/*
+	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection c = DriverManager.getConnection(
 				"jdbc:mysql://localhost/springStudy","root","0000"
 		);
 		return c;
 	}
-
+	*/
 
 }
